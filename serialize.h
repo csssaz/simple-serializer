@@ -96,8 +96,13 @@ template<typename T> void serialize(FILE *output, const T &entity) {
 
 template<typename T> void serialize(string file_name, const T &entity) {
     FILE *output = fopen(file_name.c_str(), "wb");
+    if (!output) {
+        throw runtime_error("can't open file for writing");
+    }
     serialize(output, entity);
-    fclose(output);
+    if (fclose(output)) {
+        throw runtime_error("can't close");
+    }
 }
 
 template<typename T> void deserialize(FILE *input, T *entity) {
@@ -106,8 +111,13 @@ template<typename T> void deserialize(FILE *input, T *entity) {
 
 template<typename T> void deserialize(string file_name, T *entity) {
     FILE *input = fopen(file_name.c_str(), "rb");
+    if (!input) {
+        throw runtime_error("can't open file for reading");
+    }
     deserialize(input, entity);
-    fclose(input);
+    if (fclose(input)) {
+        throw runtime_error("can't close");
+    }
 }
 
 };
