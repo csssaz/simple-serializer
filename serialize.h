@@ -44,6 +44,8 @@ template <>
 struct IsElementary<int32_t> : std::true_type {};
 template <>
 struct IsElementary<int64_t> : std::true_type {};
+template <>
+struct IsElementary<std::size_t> : std::true_type {};
 
 template <typename T, typename dummy = void>
 struct Serializer;
